@@ -39,5 +39,7 @@ I run the script at 9am every morning via a simple cron job on my home server.
 
 That sends a notification to my Gotify instance, and I'll get a notification that I can view. It really wouldn't take much to swap out the Gotify part of the script with a Telegram bot or similar.
 
-![](.README/gotify_android_example.jpg)
+![Example Web Application Notification](.README/gotify_webapp_example.png)
+
+![Example Android Notification](.README/gotify_android_example.jpg)
 
