@@ -61,7 +61,7 @@ with open("./year_1.txt", "r", encoding="utf-8") as readings:
             # Store the full passage reference (John 3:16):
             canonical = response_data["canonical"]
             # Store the passage itself:
-            passage = response_data["passages"][0]
+            passage = response_data["passages"][0].rstrip()
 
             # Telegram API Configuration:
             bot_token = config_file["telegram_bot_token"]
