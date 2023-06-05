@@ -16,8 +16,6 @@ with open("config.yml", "r", encoding="utf-8") as config:
 # Variables:
 esv_api_token = config_file["esv_api_token"]
 readings_file = config_file["readings_file"]
-gotify_app_token = config_file["gotify_app_token"]
-base_url = config_file["gotify_base_url"]
 
 # API Headers:
 headers = {
@@ -51,7 +49,10 @@ with open("./year_1.txt", "r", encoding="utf-8") as readings:
 
             # Call the API:
             response = requests.get(
-                "https://api.esv.org/v3/passage/text/", params=params, headers=headers, timeout=300
+                "https://api.esv.org/v3/passage/text/",
+                params=params,
+                headers=headers,
+                timeout=300,
             )
 
             # Store the API response:
@@ -62,32 +63,33 @@ with open("./year_1.txt", "r", encoding="utf-8") as readings:
             # Store the passage itself:
             passage = response_data["passages"][0]
 
-            # Gotify API Configuration:
-            api_url = f"/message?token={gotify_app_token}"
+            # Telegram API Configuration:
+            bot_token = config_file["telegram_bot_token"]
+            base_url = config_file["telegram_base_url"]
+            chat_id = str(config_file["telegram_bot_chat_id"])
+            api_url = f"/bot{bot_token}/sendMessage"
 
             # Setup the notification message:
             api_payload = {
-                "priority": 4,
-                "title": "Daily Bible",
-                "message": f"""
-### {canonical}
+                "chat_id": chat_id,
+                "parse_mode": "HTML",
+                "text": f"""
+<b>{canonical}</b>
 
-> {passage}
+{passage}
 
-[{canonical}](https://www.esv.org/{reading}) - ESV
+<a href="https://www.esv.org/{reading})">{canonical} - ESV</a>
 """,
-                "extras": {
-                    "client::display": {"contentType": "text/markdown"},
-                },
             }
 
             # Create the API endpoint:
             api_endpoint = base_url + api_url
 
-            # Post the message to the Gotify API (send the bible reading):
+            # Post the message to the Telegram API (send the bible reading):
             response = requests.post(
                 api_endpoint,
                 headers={"Content-Type": "application/json"},
                 data=json.dumps(api_payload),
-                timeout=300
+                timeout=300,
             )
+
