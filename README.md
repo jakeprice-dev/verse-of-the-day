@@ -2,7 +2,7 @@
 
 ## Summary
 
-A simple Python script that sends a "verse of the day" notification to my personal [Gotify](https://gotify.net) instance. It uses the [ESV API](https://api.esv.org/) to retrieve the verse/reading/passage.
+A simple Python script that sends a "verse of the day" notification to a Telegram Bot. It uses the [ESV API](https://api.esv.org/) to retrieve the verse/reading/passage.
 
 ## Setup
 
@@ -10,12 +10,13 @@ You need to create a `config.yml` file with the following key/values:
 
 ```yaml
 esv_api_token: <api-token>
-gotify_app_token: <app-token>
-gotify_base_url: https://<gotify-url>
 readings_file: year_1.txt
+telegram_base_url: https://api.telegram.org
+telegram_bot_chat_id: 
+telegram_bot_token: 
 ```
 
-You can get an ESV API application and retrieve a token from [here](https://api.esv.org/account/create-application/). You'll also need to create a Gotify app within your personal instance, and retrieve it's token.
+You can get an ESV API application and retrieve a token from [here](https://api.esv.org/account/create-application/). You'll also need to create a Telegram Bot.
 
 ## Verses/Readings/Passages
 
@@ -37,9 +38,5 @@ I run the script at 9am every morning via a simple cron job on my home server.
 0 9 * * * /usr/bin/docker run --rm --env TZ=Europe/London --volume /srv/data-01/my/files/code/verse-of-the-day:/app jakepricedev/docker-pyrunner:latest python3 main.py
 ```
 
-That sends a notification to my Gotify instance, and I'll get a notification that I can view. It really wouldn't take much to swap out the Gotify part of the script with a Telegram bot or similar.
-
-![Example Web Application Notification](.README/gotify_webapp_example.png)
-
-![Example Android Notification](.README/gotify_android_example.jpg)
+That sends a notification to Telegram, and I'll get a notification that I can view. 
 
