@@ -78,7 +78,7 @@ with open("./year_1.txt", "r", encoding="utf-8") as readings:
 
 {passage}
 
-<a href="https://www.esv.org/{reading})">{canonical} - ESV</a>
+<a href="https://www.esv.org/{reading}">{canonical} - ESV</a>
 """,
             }
 
