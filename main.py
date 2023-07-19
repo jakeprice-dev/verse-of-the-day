@@ -73,6 +73,7 @@ with open("./year_1.txt", "r", encoding="utf-8") as readings:
             api_payload = {
                 "chat_id": chat_id,
                 "parse_mode": "HTML",
+                "disable_web_page_preview": True,
                 "text": f"""
 <b>{canonical}</b>
 
